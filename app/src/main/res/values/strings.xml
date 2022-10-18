@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Calc</string>
+    <string name="first">first</string>
+    <string name="second">second</string>
+    <string name="bottom_sheet_peek" />
+    <string name="bottom_sheet_content" />
+</resources>
