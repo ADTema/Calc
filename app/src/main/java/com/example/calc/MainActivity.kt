@@ -1,6 +1,7 @@
 package com.example.calc
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.webkit.WebSettings.PluginState
@@ -10,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import android.view.View.OnClickListener;
+import androidx.appcompat.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity() {
@@ -24,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     var res: Double = 0.0
 
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
-        try {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         plus = findViewById(R.id.Plus)
@@ -35,25 +37,52 @@ class MainActivity : AppCompatActivity() {
         FirstNum = findViewById(R.id.FirstNum)
         SecondNum = findViewById(R.id.SecondNum)
         Result = findViewById(R.id.Result)
-        val first: String = FirstNum.text.toString()
-        val second: String = FirstNum.text.toString()
-        //res = FirstNum.text.toString().toDouble() + SecondNum.text.toString().toDouble()
 
-         val summ: OnClickListener = OnClickListener { Result.text = (FirstNum.text.toString().toDouble() + SecondNum.text.toString().toDouble()).toString() }
-         val razn: OnClickListener = OnClickListener { Result.text = (FirstNum.text.toString().toDouble() - SecondNum.text.toString().toDouble()).toString()}
-         val proiz: OnClickListener = OnClickListener { Result.text = (FirstNum.text.toString().toDouble() * SecondNum.text.toString().toDouble()).toString()}
-         val chast: OnClickListener = OnClickListener { Result.text = (FirstNum.text.toString().toDouble() / SecondNum.text.toString().toDouble()).toString()}
-         plus.setOnClickListener(summ)
-         minus.setOnClickListener(razn)
-         umn.setOnClickListener(proiz)
-         del.setOnClickListener(chast)
+        plus.setOnClickListener {
+            if (FirstNum.text.isEmpty() || SecondNum.text.isEmpty()) {
+                Result.text = "inter number"
+            } else
+                Result.text = (FirstNum.text.toString().toDouble() + SecondNum.text.toString()
+                    .toDouble()).toString()
         }
-        catch (e : java.lang.Exception){
-            Result.text = ("not empty")
+        minus.setOnClickListener {
+            if (FirstNum.text.isEmpty() || SecondNum.text.isEmpty()) {
+                Result.text = "inter number"
+            } else Result.text = (FirstNum.text.toString().toDouble() - SecondNum.text.toString()
+                .toDouble()).toString()
         }
+        umn.setOnClickListener {
+            if (FirstNum.text.isEmpty() || SecondNum.text.isEmpty()) {
+                Result.text = "inter number"
+            } else Result.text = (FirstNum.text.toString().toDouble() * SecondNum.text.toString()
+                .toDouble()).toString()
+        }
+        del.setOnClickListener {
+            if (FirstNum.text.isEmpty() || SecondNum.text.isEmpty()) {
+                Result.text = "inter number"
+            } else Result.text = (FirstNum.text.toString().toDouble() / SecondNum.text.toString()
+                .toDouble()).toString()
+        }
+
     }
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        AlertDialog.Builder(this).apply {
+            setTitle("Подтверждение")
+            setMessage("Вы уверены, что хотите выйти из приложения?")
 
+            setPositiveButton("Таки да") { _, _ ->
+                super.onBackPressed()
+            }
 
+            setNegativeButton("Нет, я попутал"){_, _ ->
+                // if user press no, then return the activity
+                Toast.makeText(this@MainActivity, "Thank you",
+                    Toast.LENGTH_LONG).show()
+            }
+            setCancelable(true)
+        }.create().show()
+    }
 
 }
 

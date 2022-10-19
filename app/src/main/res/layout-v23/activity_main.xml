@@ -132,8 +132,8 @@
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
         android:layout_height="340dp"
+        android:foreground="@drawable/bottomsheet"
         android:orientation="vertical"
-        android:background="@color/white"
         app:behavior_hideable="false"
         app:behavior_peekHeight="50dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
@@ -152,6 +152,7 @@
             android:text="swipe to remove"
             android:textColor="@android:color/white"
             android:textSize="34sp" />
+
     </LinearLayout>
 
 
